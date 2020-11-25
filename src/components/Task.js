@@ -4,7 +4,8 @@ import Cookies from "js-cookie";
 import ContentEditable from "react-contenteditable";
 import SunEditor from "suneditor-react";
 import "suneditor/dist/css/suneditor.min.css";
-import moment from 'moment'
+import moment from "moment";
+import styled from "styled-components";
 
 import ProjectBreadcrumb from "./ProjectBreadcrumb";
 import TaskPriorityDropdown from "./TaskPriorityDropdown";
@@ -83,12 +84,20 @@ const Task = ({ task, refetch }) => {
               <p>
                 <strong>Description:</strong>
               </p>
-              <Container textAlign="justified" style={{ minHeight: "400px" }}>
+              <Container
+                textAlign="justified"
+                style={{
+                  height: '535px',
+                  overflowY: "auto"
+                }}
+              >
                 {!editingDescription && (
                   <div
                     dangerouslySetInnerHTML={{ __html: task.description }}
                     onClick={() => setEditingDescription(true)}
-                    style={{ cursor: "pointer" }}
+                    style={{
+                      cursor: "pointer",
+                    }}
                   ></div>
                 )}
                 {editingDescription ? (
@@ -118,9 +127,8 @@ const Task = ({ task, refetch }) => {
                 ) : (
                   <></>
                 )}
+                <CommentsIndex key={task.id} task={task} />
               </Container>
-
-              <CommentsIndex key={task.id} task={task} />
             </Grid.Column>
             <Grid.Column style={{ backgroundColor: "#add8e6" }} width={4}>
               <p>Project: {task.projectIdentifier}</p>
@@ -141,14 +149,17 @@ const Task = ({ task, refetch }) => {
                 open={openConfirmation}
                 onCancel={() => setOpenConfirmation(false)}
                 onConfirm={() => {
-                  deleteTask(task.id)
-                  setOpenConfirmation(false)
+                  deleteTask(task.id);
+                  setOpenConfirmation(false);
                 }}
                 confirmButton="Delete Task"
                 content={`Are you sure you want to delete ${task.title}?`}
               />
               <Divider />
-              <div>Created at: {moment(task.createdAt).format("MMMM Do YYYY, h:mm:ss a")}</div>
+              <div style={{color: 'grey'}}>
+                Created at:{" "}
+                {moment(task.createdAt).format("MMMM Do YYYY, h:mm:ss a")}
+              </div>
             </Grid.Column>
           </Grid.Row>
         </Grid>

@@ -6,6 +6,7 @@ import * as Sentry from "@sentry/react";
 import { Integrations } from "@sentry/tracing";
 import 'semantic-ui-css/semantic.min.css'
 
+
 Sentry.init({
   dsn: "https://9a51f84a87e342ed87f11dda0dd913ea@o451084.ingest.sentry.io/5532422",
   integrations: [

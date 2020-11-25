@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { usePaginatedQuery } from "react-query";
-import { Button, Comment, Form, Header } from "semantic-ui-react";
+import { Button, Comment, Form, Header, Loader } from "semantic-ui-react";
 import TaskComment from "./TaskComment";
 import Cookies from "js-cookie";
 import api from "../services/api";
@@ -29,7 +29,7 @@ const CommentsIndex = ({ task }) => {
     e.preventDefault();
     const comment = newComment;
     createComment(comment, task.id);
-    setAddComment(false)
+    setAddComment(false);
   };
 
   const createComment = async (body, taskId) => {
@@ -53,11 +53,20 @@ const CommentsIndex = ({ task }) => {
 
   return (
     <div>
-      {status === "loading" && <div>Loading data...</div>}
+      {status === "loading" && (
+        <div>
+          <Loader inline center />
+        </div>
+      )}
       {status === "error" && <div>Error fetching data</div>}
       {status === "success" && (
         <>
-          <div>
+          <div
+            style={{
+              overflowY: "auto",
+              maxHeight: "400px",
+            }}
+          >
             <Comment.Group size="small">
               <Header as="h3" dividing>
                 Comments
@@ -68,9 +77,9 @@ const CommentsIndex = ({ task }) => {
                     style={{
                       cursor: "text",
                       border: "inset",
-                      height: '40px',
-                      marginBottom: '20px',
-                      color: '#b0b0b0'
+                      height: "40px",
+                      marginBottom: "20px",
+                      color: "#b0b0b0", 
                     }}
                     onClick={() => setAddComment(true)}
                   >
@@ -79,10 +88,10 @@ const CommentsIndex = ({ task }) => {
                 )}
                 {addComment && (
                   <>
-                    <SunEditor 
-                    onChange={(content) => setNewComment(content)} 
-                    placeholder="Add a comment..."
-                    autoFocus={true}
+                    <SunEditor
+                      onChange={(content) => setNewComment(content)}
+                      placeholder="Add a comment..."
+                      autoFocus={true}
                     />
                     <Button
                       content="Submit"
@@ -91,7 +100,7 @@ const CommentsIndex = ({ task }) => {
                       primary
                       onClick={handleSubmit}
                     />
-                    
+
                     <Button
                       content="Cancel"
                       labelPosition="left"

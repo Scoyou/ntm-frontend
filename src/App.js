@@ -4,7 +4,9 @@ import styled from "styled-components";
 import Home from "./pages/splashpage";
 import Dashboard from "./pages/dashboard";
 import TasksIndex from "./pages/tasksIndex";
+import Task from "./components/Task";
 import NotFound from "./components/NotFound";
+import './App.css'
 
 const Sticky = styled.div`
   position: -webkit-sticky;

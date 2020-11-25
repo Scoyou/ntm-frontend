@@ -1,12 +1,11 @@
 import Cookies from "js-cookie";
 import React, { useState, useEffect, useLayoutEffect } from "react";
 import api from "../services/api";
-import { Grid, Segment, Divider } from "semantic-ui-react";
+import { Grid, Segment, Divider, Loader } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import TaskCard from "../components/TaskCard";
 import DashboardGraphs from "../components/DashboardGraphs";
 import styles from "../styles/Home.module.css";
-
 
 const Dashboard = () => {
   const jwt = Cookies.get("jwt");
@@ -28,7 +27,6 @@ const Dashboard = () => {
       })
       .catch((error) => {
         console.log(error);
-        setLoadingTasks(false);
       });
   };
 
@@ -74,32 +72,38 @@ const Dashboard = () => {
     <div>
       <main className={styles.main}>
         <div>
-          <h1 className={styles.title}>Welcome, {user}!</h1>
+          {jwt && <h1 className={styles.title}>Welcome, {user}!</h1>}
           <h2>Recent Tasks</h2>
           <Segment color="green">
             <Grid columns={tasks.length < 4 ? tasks.length : 4} divided>
-              <Grid.Row>
-                {tasks.length <= 4
-                  ? tasks.map((task) => (
-                      <>
-                        <Grid.Column mobile={16} tablet={8} computer={4}>
-                          <TaskCard key={task.id} task={task} />
-                        </Grid.Column>
-                      </>
-                    ))
-                  : tasks.slice(0, 4).map((task) => (
-                      <>
-                        <Grid.Column mobile={16} tablet={8} computer={4}>
-                          <TaskCard key={task.id} task={task} />
-                        </Grid.Column>
-                      </>
-                    ))}
-              </Grid.Row>
+              {!loadingTasks ? (
+                <Grid.Row>
+                  {tasks.length <= 4
+                    ? tasks.map((task) => (
+                        <>
+                          <Grid.Column mobile={16} tablet={8} computer={4}>
+                            <TaskCard key={task.id} task={task} />
+                          </Grid.Column>
+                        </>
+                      ))
+                    : tasks.slice(0, 4).map((task) => (
+                        <>
+                          <Grid.Column mobile={16} tablet={8} computer={4}>
+                            <TaskCard key={task.id} task={task} />
+                          </Grid.Column>
+                        </>
+                      ))}
+                </Grid.Row>
+              ) : (
+                <Grid.Row>
+                  <Loader active inline="centered" />
+                </Grid.Row>
+              )}
             </Grid>
           </Segment>
           {tasks.length > 4 ? (
             <h3 style={{ float: "right" }}>
-              <Link href="/tasks/tasks-index">See all tasks</Link>
+              <Link to="/tasks">See all tasks</Link>
             </h3>
           ) : (
             <></>

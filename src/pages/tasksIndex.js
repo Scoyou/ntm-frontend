@@ -3,7 +3,7 @@ import { usePaginatedQuery } from "react-query";
 import CreateTaskPage from "../components/CreateTask";
 import Task from "../components/Task";
 
-import { Tab, Input, Segment, Header } from "semantic-ui-react";
+import { Tab, Input, Segment, Header, Loader } from "semantic-ui-react";
 import ProjectsDropdown from "../components/ProjectsDropdown";
 import Cookies from "js-cookie";
 import api from "../services/api";
@@ -27,7 +27,7 @@ const TasksIndex = () => {
       project === ""
         ? "tasks"
         : `tasks?projectIdentifier=${project}`;
-    const res = await api.get(url);
+    const res = await api.get(url)
     return res.data;
   };
 
@@ -73,7 +73,7 @@ const TasksIndex = () => {
         <CreateTaskPage refetch={refetch} />
       </Segment>
 
-      {status === "loading" && <div>Loading data...</div>}
+      {status === "loading" && <div><Loader active inline /></div>}
       {status === "error" && <div>Error fetching data</div>}
       {status === "success" && (
         <>

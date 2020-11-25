@@ -16,6 +16,7 @@ const SignInPage = (props) => {
         Cookies.set("jwt", res.data.accessToken);
         props.setLoggedIn(true);
         setOpen(false);
+        props.history.push("/dashboard")
       }).catch(e => setErrors([e.response.data.message]));
   };
 
