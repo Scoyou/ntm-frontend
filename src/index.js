@@ -4,7 +4,6 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import * as Sentry from "@sentry/react";
 import { Integrations } from "@sentry/tracing";
-import './styles/globals.css'
 import 'semantic-ui-css/semantic.min.css'
 
 Sentry.init({

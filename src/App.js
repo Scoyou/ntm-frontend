@@ -1,5 +1,3 @@
-import logo from "./logo.svg";
-import "./App.css";
 import Navbar from "./components/navbar";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import styled from "styled-components";
