@@ -5,7 +5,6 @@ import { Grid, Segment, Divider, Loader } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import TaskCard from "../components/TaskCard";
 import DashboardGraphs from "../components/DashboardGraphs";
-import styles from "../styles/Home.module.css";
 
 const Dashboard = () => {
   const jwt = Cookies.get("jwt");
@@ -70,9 +69,9 @@ const Dashboard = () => {
 
   return (
     <div>
-      <main className={styles.main}>
+      <main>
         <div>
-          {jwt && <h1 className={styles.title}>Welcome, {user}!</h1>}
+          {jwt && <h1>Welcome, {user}!</h1>}
           <h2>Recent Tasks</h2>
           <Segment color="green">
             <Grid columns={tasks.length < 4 ? tasks.length : 4} divided>
